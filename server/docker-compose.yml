@@ -1,0 +1,49 @@
+version: '3.8' # Adjust version as needed
+
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - '9000:9000'
+    volumes:
+      - .:/app
+    networks:
+      - exlibris
+    env_file:
+      - .env
+    depends_on:
+      - pg
+      - mysql
+    entrypoint: sh -c "npm run start:dev:inspect"
+
+  pg:
+    image: 'postgres:16-alpine'
+    environment:
+      - POSTGRES_USER=exlibris
+      - POSTGRES_PASSWORD=exlibris
+      - POSTGRES_DB=exlibris_dev
+    volumes:
+      - ./db/pg:/var/lib/postgresql/data
+    networks:
+      - exlibris
+    ports:
+      - '5432:5432'
+
+  mysql:
+    image: 'mysql:8.2.0'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=exlibris_dev
+      - MYSQL_USER=exlibris
+      - MYSQL_PASSWORD=exlibris
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    networks:
+      - exlibris
+    ports:
+      - '3306:3306'
+
+networks:
+  exlibris:
+    name: exlibris_network

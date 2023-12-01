@@ -1,0 +1,5 @@
+{
+  "execMap": {
+    "ts": "node --require dotenv/config --require ts-node/register"
+  }
+}
