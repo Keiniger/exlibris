@@ -1,11 +1,12 @@
-version: '3.8' # Adjust version as needed
+version: '3.8'
 
 services:
   api:
     build:
       context: .
     ports:
-      - '9000:9000'
+      - '3000:3000'
+      - '3001:3001'
     volumes:
       - .:/app
     networks:
@@ -19,10 +20,8 @@ services:
 
   pg:
     image: 'postgres:16-alpine'
-    environment:
-      - POSTGRES_USER=exlibris
-      - POSTGRES_PASSWORD=exlibris
-      - POSTGRES_DB=exlibris_dev
+    env_file:
+      - .env
     volumes:
       - ./db/pg:/var/lib/postgresql/data
     networks:
@@ -32,11 +31,8 @@ services:
 
   mysql:
     image: 'mysql:8.2.0'
-    environment:
-      - MYSQL_ROOT_PASSWORD=root_password
-      - MYSQL_DATABASE=exlibris_dev
-      - MYSQL_USER=exlibris
-      - MYSQL_PASSWORD=exlibris
+    env_file:
+      - .env
     volumes:
       - ./db/mysql:/var/lib/mysql
     networks:

@@ -5,6 +5,80 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "______________Backend debug______________"
+        },
+        {
+            "name": "Docker: Attach to Node",
+            "type": "node",
+            "request": "attach",
+            "port": 3001,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/app",
+            "sourceMaps": true,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Launch Node Server",
+            "type": "node",
+            "request": "launch",
+            "localRoot": "${workspaceFolder}",
+            "runtimeExecutable": "/home/keiniger/.nvm/versions/node/v16.10.0/bin/node",
+            "remoteRoot": "/usr/app",
+            "envFile": "${workspaceFolder}/.env",
+            "sourceMaps": true,
+        },
+        {
+            "name": "Node: Debug Current File",
+            "type": "node",
+            "runtimeExecutable": "/home/keiniger/.nvm/versions/node/v16.10.0/bin/node",
+            "envFile": "${workspaceFolder}/.env",
+            "request": "launch",
+            "program": "${file}"
+        },
+        {
+            "name": "Jest: Debug current file",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": [
+                "${fileBasename}",
+                "--verbose",
+                "-i",
+                "--no-cache"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ]
+        },
+        {
+            "name": "Jest: Debug and watch current file",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            "args": [
+                "${fileBasename}",
+                "--verbose",
+                "-i",
+                "--no-cache",
+                "--watchAll"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ]
+        },
+        {
+            "name": "______________Frontend debug______________"
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",

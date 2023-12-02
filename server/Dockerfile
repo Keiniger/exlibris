@@ -19,6 +19,7 @@ RUN npm run build
 
 # Expose the port that the server will run on
 EXPOSE 3000
+EXPOSE 3001
 
 # Command to start the server
 CMD ["npm", "start"]
