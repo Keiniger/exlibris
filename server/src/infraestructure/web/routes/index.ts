@@ -7,8 +7,10 @@ export function initRoutes(app: Application) {
   });
 
   app.get('/book', async (req: Request, res: Response) => {
-    const title = req.body?.title as string;
+    const title = req.query.title as string;
+
     const booksFound = await getBookByTitle(title);
-    res.send(booksFound);
+
+    res.json(booksFound);
   });
 }

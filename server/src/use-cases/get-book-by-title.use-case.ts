@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import Fiction from '../infraestructure/db/models/fiction.model';
+import FictionHashes from '../infraestructure/db/models/fiction-hashes.model';
 
 export default async function getBookByTitle(title: string) {
   try {
@@ -9,9 +10,10 @@ export default async function getBookByTitle(title: string) {
           [Op.like]: `${title}%`,
         },
       },
+      include: [FictionHashes],
+      limit: 10,
     });
 
-    // TODO: map booksFound to book entity
     return booksFound;
   } catch (error) {
     console.log(error);

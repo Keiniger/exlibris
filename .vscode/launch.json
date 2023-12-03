@@ -13,22 +13,22 @@
             "request": "attach",
             "port": 3001,
             "address": "localhost",
-            "localRoot": "${workspaceFolder}",
+            "localRoot": "${workspaceFolder}/server",
             "remoteRoot": "/app",
             "sourceMaps": true,
             "skipFiles": [
-                "<node_internals>/**"
+                "/server/<node_internals>/**"
             ]
         },
         {
             "name": "Launch Node Server",
             "type": "node",
             "request": "launch",
-            "localRoot": "${workspaceFolder}",
+            "localRoot": "${workspaceFolder}/server",
             "runtimeExecutable": "/home/keiniger/.nvm/versions/node/v16.10.0/bin/node",
             "remoteRoot": "/usr/app",
             "envFile": "${workspaceFolder}/.env",
-            "sourceMaps": true,
+            "sourceMaps": true
         },
         {
             "name": "Node: Debug Current File",
@@ -42,7 +42,7 @@
             "name": "Jest: Debug current file",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "program": "${workspaceRoot}/server/node_modules/jest/bin/jest.js",
             "args": [
                 "${fileBasename}",
                 "--verbose",
@@ -52,7 +52,7 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/server/node_modules/**/*.js",
                 "<node_internals>/**/*.js"
             ]
         },
@@ -60,7 +60,7 @@
             "name": "Jest: Debug and watch current file",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            "program": "${workspaceFolder}/server/node_modules/jest/bin/jest",
             "args": [
                 "${fileBasename}",
                 "--verbose",
@@ -83,14 +83,11 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:5173",
-            "webRoot": "${workspaceFolder}",
+            "webRoot": "${workspaceFolder}/client",
             "skipFiles": [
                 "<node_internals>/**",
-                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/node_modules/**/*.js"
             ],
-            "sourceMapPathOverrides": {
-                "/mnt/c/*": "/__vscode-remote-uri__/mnt/c/*",
-            },
         },
         {
             "type": "firefox",
@@ -98,25 +95,22 @@
             "reAttach": true,
             "name": "Launch Firefox against localhost",
             "url": "http://localhost:5173",
-            "webRoot": "${workspaceFolder}",
+            "webRoot": "${workspaceFolder}/client",
             "skipFiles": [
-                "<node_internals>/**",
-                "${workspaceFolder}/node_modules/**/*.js",
-            ]
+                "/client/<node_internals>/**",
+                "${workspaceFolder}/client/node_modules/**/*.js"
+            ],
         },
         {
             "type": "msedge",
             "request": "launch",
             "name": "Launch Edge agains localhost",
             "url": "http://localhost:5173",
-            "webRoot": "${workspaceFolder}",
+            "webRoot": "${workspaceFolder}/client",
             "skipFiles": [
-                "<node_internals>/**",
-                "${workspaceFolder}/node_modules/**/*.js",
+                "/client/<node_internals>/**",
+                "${workspaceFolder}/client/node_modules/**/*.js"
             ],
-            "sourceMapPathOverrides": {
-                "/mnt/c/*": "/__vscode-remote-uri__/mnt/c/*",
-            },
         }
     ]
 }
