@@ -36,51 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var sequelize_1 = require("sequelize");
-var fiction_model_1 = require("../infraestructure/db/models/fiction.model");
-var fiction_hashes_model_1 = require("../infraestructure/db/models/fiction-hashes.model");
-var updated_model_1 = require("../infraestructure/db/models/updated.model");
-var hashes_model_1 = require("../infraestructure/db/models/hashes.model");
-function getBookByTitle(title) {
-    return __awaiter(this, void 0, void 0, function () {
-        var fiction, nonFiction, error_1;
-        var _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+exports.initRoutes = void 0;
+var get_book_by_title_use_case_1 = require("../../../use-cases/get-book-by-title.use-case");
+// const libgen = require('libgen');
+var http_1 = require("http");
+function initRoutes(app) {
+    var _this = this;
+    app.get('/', function (req, res) {
+        res.send('Hello, this is your TypeScript Node.js server with Express!');
+    });
+    app.get('/book', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        var title, booksFound;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _c.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fiction_model_1["default"].findAll({
-                            attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
-                            where: {
-                                Title: (_a = {},
-                                    _a[sequelize_1.Op.like] = title + "%",
-                                    _a)
-                            },
-                            include: [{ model: fiction_hashes_model_1["default"], attributes: ['ipfs_cid'] }],
-                            limit: 10
-                        })];
+                    title = req.query.title;
+                    return [4 /*yield*/, get_book_by_title_use_case_1["default"](title)];
                 case 1:
-                    fiction = _c.sent();
-                    return [4 /*yield*/, updated_model_1["default"].findAll({
-                            attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
-                            where: {
-                                Title: (_b = {},
-                                    _b[sequelize_1.Op.like] = title + "%",
-                                    _b)
-                            },
-                            include: [{ model: hashes_model_1["default"], attributes: ['ipfs_cid'] }],
-                            limit: 10
-                        })];
-                case 2:
-                    nonFiction = _c.sent();
-                    return [2 /*return*/, { fiction: fiction, nonFiction: nonFiction }];
-                case 3:
-                    error_1 = _c.sent();
-                    console.log(error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    booksFound = _a.sent();
+                    res.json(booksFound);
+                    return [2 /*return*/];
             }
         });
-    });
+    }); });
+    app.get('/book-libgen-api', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/];
+        });
+    }); });
+    app.get('/cover/*', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        var coverUrl;
+        return __generator(this, function (_a) {
+            coverUrl = req.originalUrl.split('/cover/')[1];
+            if (!coverUrl)
+                return [2 /*return*/, res.status(500).send('Error fetching the file')];
+            http_1["default"]
+                .get('http://libgen.is/' + coverUrl, function (response) {
+                res.setHeader('Content-type', 'image/jpeg');
+                response.pipe(res);
+            })
+                .on('error', function (err) {
+                res.status(500).send('Error fetching the file');
+            });
+            return [2 /*return*/];
+        });
+    }); });
 }
-exports["default"] = getBookByTitle;
+exports.initRoutes = initRoutes;

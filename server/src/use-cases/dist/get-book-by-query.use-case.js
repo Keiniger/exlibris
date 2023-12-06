@@ -41,7 +41,7 @@ var fiction_model_1 = require("../infraestructure/db/models/fiction.model");
 var fiction_hashes_model_1 = require("../infraestructure/db/models/fiction-hashes.model");
 var updated_model_1 = require("../infraestructure/db/models/updated.model");
 var hashes_model_1 = require("../infraestructure/db/models/hashes.model");
-function getBookByTitle(title) {
+function getBookByQuery(query) {
     return __awaiter(this, void 0, void 0, function () {
         var fiction, nonFiction, error_1;
         var _a, _b;
@@ -53,7 +53,7 @@ function getBookByTitle(title) {
                             attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
                             where: {
                                 Title: (_a = {},
-                                    _a[sequelize_1.Op.like] = title + "%",
+                                    _a[sequelize_1.Op.like] = query + "%",
                                     _a)
                             },
                             include: [{ model: fiction_hashes_model_1["default"], attributes: ['ipfs_cid'] }],
@@ -65,7 +65,7 @@ function getBookByTitle(title) {
                             attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
                             where: {
                                 Title: (_b = {},
-                                    _b[sequelize_1.Op.like] = title + "%",
+                                    _b[sequelize_1.Op.like] = query + "%",
                                     _b)
                             },
                             include: [{ model: hashes_model_1["default"], attributes: ['ipfs_cid'] }],
@@ -83,4 +83,4 @@ function getBookByTitle(title) {
         });
     });
 }
-exports["default"] = getBookByTitle;
+exports["default"] = getBookByQuery;

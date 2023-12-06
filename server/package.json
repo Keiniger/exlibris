@@ -51,6 +51,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jest-cucumber": "^3.0.1",
+    "libgen": "^2.1.2",
     "mysql2": "^3.6.5",
     "sequelize": "^6.35.1",
     "sequelize-typescript": "^2.1.6"

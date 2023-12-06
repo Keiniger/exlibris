@@ -36,46 +36,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var sequelize_1 = require("sequelize");
 var fiction_model_1 = require("../infraestructure/db/models/fiction.model");
-var fiction_hashes_model_1 = require("../infraestructure/db/models/fiction-hashes.model");
 var updated_model_1 = require("../infraestructure/db/models/updated.model");
-var hashes_model_1 = require("../infraestructure/db/models/hashes.model");
-function getBookByTitle(title) {
+function getBookCoverByMd5(md5) {
     return __awaiter(this, void 0, void 0, function () {
-        var fiction, nonFiction, error_1;
-        var _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var fictionCoverUrl, nonFictionCoverUrl, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _c.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fiction_model_1["default"].findAll({
-                            attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
-                            where: {
-                                Title: (_a = {},
-                                    _a[sequelize_1.Op.like] = title + "%",
-                                    _a)
-                            },
-                            include: [{ model: fiction_hashes_model_1["default"], attributes: ['ipfs_cid'] }],
-                            limit: 10
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fiction_model_1["default"].findOne({
+                            attributes: ['Coverurl'],
+                            where: { md5: md5 }
                         })];
                 case 1:
-                    fiction = _c.sent();
-                    return [4 /*yield*/, updated_model_1["default"].findAll({
-                            attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
-                            where: {
-                                Title: (_b = {},
-                                    _b[sequelize_1.Op.like] = title + "%",
-                                    _b)
-                            },
-                            include: [{ model: hashes_model_1["default"], attributes: ['ipfs_cid'] }],
-                            limit: 10
+                    fictionCoverUrl = _a.sent();
+                    return [4 /*yield*/, updated_model_1["default"].findOne({
+                            attributes: ['Coverurl'],
+                            where: { md5: md5 }
                         })];
                 case 2:
-                    nonFiction = _c.sent();
-                    return [2 /*return*/, { fiction: fiction, nonFiction: nonFiction }];
+                    nonFictionCoverUrl = _a.sent();
+                    if (fictionCoverUrl) {
+                        return [2 /*return*/, 'http://libgen.is/fictioncovers/' + fictionCoverUrl];
+                    }
+                    else if (nonFictionCoverUrl) {
+                        return [2 /*return*/, 'http://www.libgen.is/covers/' + nonFictionCoverUrl];
+                    }
+                    return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _c.sent();
+                    error_1 = _a.sent();
                     console.log(error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
@@ -83,4 +73,4 @@ function getBookByTitle(title) {
         });
     });
 }
-exports["default"] = getBookByTitle;
+exports["default"] = getBookCoverByMd5;

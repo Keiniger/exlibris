@@ -4,13 +4,13 @@ import FictionHashes from '../infraestructure/db/models/fiction-hashes.model';
 import Updated from '../infraestructure/db/models/updated.model';
 import Hashes from '../infraestructure/db/models/hashes.model';
 
-export default async function getBookByTitle(title: string) {
+export default async function getBookByQuery(query: string) {
   try {
     const fiction = await Fiction.findAll({
       attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
       where: {
         Title: {
-          [Op.like]: `${title}%`,
+          [Op.like]: `${query}%`,
         },
       },
       include: [{ model: FictionHashes, attributes: ['ipfs_cid'] }],
@@ -21,7 +21,7 @@ export default async function getBookByTitle(title: string) {
       attributes: ['Title', 'Author', 'Language', 'Extension', 'Coverurl'],
       where: {
         Title: {
-          [Op.like]: `${title}%`,
+          [Op.like]: `${query}%`,
         },
       },
       include: [{ model: Hashes, attributes: ['ipfs_cid'] }],
