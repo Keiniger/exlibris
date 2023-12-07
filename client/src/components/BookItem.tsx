@@ -22,7 +22,7 @@ export default function BookItem(props: any) {
         <br />
         <img
             src={Book.coverUrl}
-            onError={(e) => e.target.style.display = 'none'}
+            onError={(e) => (e.target as any).style.display = 'none'}
             width="70px"
             height="90px"
         />
