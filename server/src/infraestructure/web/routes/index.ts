@@ -18,7 +18,7 @@ export function initRoutes(app: Application) {
 
   app.get('/book-libgen-api', async (req: Request, res: Response) => {
     const query = req.query.q as string;
-    const mirror = 'http://libgen.is';
+    const mirror = process.env.LIBGEN;
     const options = { mirror, query };
     try {
       const data = await libgen.search(options);
@@ -34,7 +34,7 @@ export function initRoutes(app: Application) {
     if (!coverUrl) return res.status(500).send('Error fetching the file');
 
     http
-      .get('http://libgen.is/' + coverUrl, (response) => {
+      .get(process.env.LIBGEN + '/' + coverUrl, (response) => {
         res.setHeader('Content-type', 'image/jpeg');
         response.pipe(res);
       })

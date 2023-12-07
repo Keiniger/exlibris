@@ -12,7 +12,7 @@ export function initHttpServer() {
   app.use(bodyParser.json());
   app.use(
     cors({
-      origin: 'http://localhost:5173',
+      origin: process.env.FRONTEND || 'http://localhost:5173',
     })
   );
 

@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.initRoutes = void 0;
 var get_book_by_title_use_case_1 = require("../../../use-cases/get-book-by-title.use-case");
-// const libgen = require('libgen');
+var libgen = require('libgen');
 var http_1 = require("http");
 function initRoutes(app) {
     var _this = this;
@@ -60,8 +60,27 @@ function initRoutes(app) {
         });
     }); });
     app.get('/book-libgen-api', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        var query, mirror, options, data, err_1;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    query = req.query.q;
+                    mirror = process.env.LIBGEN;
+                    options = { mirror: mirror, query: query };
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, libgen.search(options)];
+                case 2:
+                    data = _a.sent();
+                    res.json(data);
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_1 = _a.sent();
+                    res.status(500).send('Error fetching query');
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
         });
     }); });
     app.get('/cover/*', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
@@ -71,7 +90,7 @@ function initRoutes(app) {
             if (!coverUrl)
                 return [2 /*return*/, res.status(500).send('Error fetching the file')];
             http_1["default"]
-                .get('http://libgen.is/' + coverUrl, function (response) {
+                .get(process.env.LIBGEN + '/' + coverUrl, function (response) {
                 res.setHeader('Content-type', 'image/jpeg');
                 response.pipe(res);
             })

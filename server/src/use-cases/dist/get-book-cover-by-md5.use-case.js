@@ -58,10 +58,10 @@ function getBookCoverByMd5(md5) {
                 case 2:
                     nonFictionCoverUrl = _a.sent();
                     if (fictionCoverUrl) {
-                        return [2 /*return*/, 'http://libgen.is/fictioncovers/' + fictionCoverUrl];
+                        return [2 /*return*/, process.env.LIBGEN + "/fictioncovers/" + fictionCoverUrl];
                     }
                     else if (nonFictionCoverUrl) {
-                        return [2 /*return*/, 'http://www.libgen.is/covers/' + nonFictionCoverUrl];
+                        return [2 /*return*/, process.env.LIBGEN + "/covers/" + fictionCoverUrl];
                     }
                     return [3 /*break*/, 4];
                 case 3:

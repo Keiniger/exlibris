@@ -11,7 +11,7 @@ function initHttpServer() {
     app.use(body_parser_1["default"].urlencoded({ extended: false }));
     app.use(body_parser_1["default"].json());
     app.use(cors_1["default"]({
-        origin: 'http://localhost:5173'
+        origin: process.env.FRONTEND || 'http://localhost:5173'
     }));
     app.listen(API_PORT, function () {
         console.log("Server running on port at " + API_PORT);

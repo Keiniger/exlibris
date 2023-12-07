@@ -14,9 +14,9 @@ export default async function getBookCoverByMd5(md5: string) {
     });
 
     if (fictionCoverUrl) {
-      return 'http://libgen.is/fictioncovers/' + fictionCoverUrl;
+      return `${process.env.LIBGEN}/fictioncovers/${fictionCoverUrl}`;
     } else if (nonFictionCoverUrl) {
-      return 'http://www.libgen.is/covers/' + nonFictionCoverUrl;
+      return `${process.env.LIBGEN}/covers/${fictionCoverUrl}`;
     }
   } catch (error) {
     console.log(error);

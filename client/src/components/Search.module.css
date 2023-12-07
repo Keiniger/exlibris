@@ -1,0 +1,8 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    max-width: 800px;
+    margin-inline: auto;
+    margin-block: 1rem;
+    padding-block: 1rem;
+}
