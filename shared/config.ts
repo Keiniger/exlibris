@@ -2,7 +2,8 @@
 
 export const config = {
   urls: {
-    backend: "http://localhost:3000",
+    // backend: "http://localhost:3000",
+    backend: "https://exlibris-backend-test.loca.lt",
     libgenMirrors: ["http://libgen.is", "http://libgen.rs"],
     openLibrarySearch: "https://openlibrary.org",
     openLibraryCover: "https://covers.openlibrary.org",
